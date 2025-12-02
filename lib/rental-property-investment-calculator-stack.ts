@@ -15,8 +15,8 @@ export class RentalPropertyInvestmentCalculatorStack extends cdk.Stack {
     super(scope, id, props);
 
     // Create the DynamoDB table
-    const propertyAnalysisTable = new dynamodb.Table(this, 'PropertyAnalysisTable', {
-      tableName: "rentalPropertyInvestmentCalculator",
+    const propertyAnalysisTable = new dynamodb.Table(this, 'PropertyAnalysisTable1', {
+      tableName: "rentalPropertyInvestmentCalculator1",
       partitionKey: {
         name: 'id',
         type: dynamodb.AttributeType.STRING,
@@ -33,8 +33,8 @@ export class RentalPropertyInvestmentCalculatorStack extends cdk.Stack {
 
 
     //Create Lambda execution role for retrieveAnalysis
-    this.rentalPropertyCalcRole = new iam.Role(this, 'rentalPropertyCalcRole', {
-      roleName: 'rentalPropertyCalcRole',
+    this.rentalPropertyCalcRole = new iam.Role(this, 'rentalPropertyCalcRole1', {
+      roleName: 'rentalPropertyCalcRole1',
       assumedBy: new iam.ServicePrincipal('lambda.amazonaws.com'),
       managedPolicies: [iam.ManagedPolicy.fromAwsManagedPolicyName('service-role/AWSLambdaBasicExecutionRole')],
     });
@@ -48,8 +48,8 @@ export class RentalPropertyInvestmentCalculatorStack extends cdk.Stack {
       }),
     );
 
-    const myFunction = new lambda.Function(this, "rental-property-investment-calc", {
-    functionName: "rental-property-investment-calc",
+    const myFunction = new lambda.Function(this, "rental-property-investment-calc1", {
+    functionName: "rental-property-investment-calc1",
     runtime: lambda.Runtime.PYTHON_3_13, 
     handler: "lambda_function.lambda_handler",
     code: lambda.Code.fromAsset(join(__dirname, '../lambda')),
@@ -59,8 +59,8 @@ export class RentalPropertyInvestmentCalculatorStack extends cdk.Stack {
       "DDB_TABLE":propertyAnalysisTable.tableName}
   });
 
-  const api = new apigateway.RestApi(this, 'rentalPropApi', {
-    restApiName: 'rentalPropApi',
+  const api = new apigateway.RestApi(this, 'rentalPropApi1', {
+    restApiName: 'rentalPropApi1',
     defaultCorsPreflightOptions: {
     allowOrigins: apigateway.Cors.ALL_ORIGINS,
     allowMethods: apigateway.Cors.ALL_METHODS,
