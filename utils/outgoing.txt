@@ -1,0 +1,50 @@
+{
+  "success": true,
+  "requestId": "uuid-v4",
+  "analysis": {
+    "scorecard": {
+      "overallScore": 72,
+      "verdict": "GOOD",
+      "categories": {
+        "cashFlow": { "score": 45, "label": "Fair", "summary": "Negative initially but improves" },
+        "yield": { "score": 75, "label": "Good", "summary": "8.64% gross yield is above average" },
+        "risk": { "score": 68, "label": "Moderate", "summary": "1 month vacancy is manageable" },
+        "growth": { "score": 82, "label": "Strong", "summary": "6% annual increase is promising" },
+        "location": { "score": 88, "label": "Excellent", "summary": "Sandton is prime real estate" }
+      },
+      "strengths": [
+        "Above-average rental yield for the area",
+        "Strong location with high rental demand",
+        "Reasonable expense structure"
+      ],
+      "weaknesses": [
+        "Negative cash flow for first 7 years",
+        "High interest rate environment",
+        "Large deposit required for break-even"
+      ]
+    },
+    "locationInsights": {
+      "neighborhoodProfile": "Sandton is Johannesburg's financial hub...",
+      "rentalDemand": { "level": "High", "trend": "Stable", "details": "..." },
+      "marketTrends": { "priceGrowth": "5-7% annually", "rentalGrowth": "6-8% annually" },
+      "growthProjection": { "fiveYear": "35-40% appreciation", "tenYear": "..." },
+      "risks": ["Economic volatility", "Interest rate fluctuations"]
+    },
+    "recommendations": {
+      "actions": [
+        { "priority": 1, "title": "Increase deposit", "description": "...", "impact": "High" },
+        { "priority": 2, "title": "Negotiate lower rate", "description": "...", "impact": "Medium" }
+      ],
+      "financialProjections": {
+        "fiveYear": { "totalEquity": 450000, "cashOnCashReturn": -2.5 },
+        "tenYear": { "totalEquity": 980000, "cashOnCashReturn": 4.2 },
+        "twentyYear": { "totalEquity": 2500000, "cashOnCashReturn": 12.8 }
+      }
+    }
+  },
+  "metadata": {
+    "modelUsed": "anthropic.claude-3-5-sonnet-20241022-v2:0",
+    "processingTimeMs": 3200,
+    "tokensUsed": { "input": 1850, "output": 2100 }
+  }
+}

@@ -48,6 +48,14 @@ export class RentalPropertyInvestmentCalculatorStack extends cdk.Stack {
       }),
     );
 
+    this.rentalPropertyCalcRole.addToPolicy(
+      new iam.PolicyStatement({
+        effect: iam.Effect.ALLOW,
+        actions: ['bedrock:InvokeModel'],
+        resources: ["*"]
+      }),
+    );
+
     const myFunction = new lambda.Function(this, "rental-property-investment-calc1", {
     functionName: "rental-property-investment-calc1",
     runtime: lambda.Runtime.PYTHON_3_13, 
@@ -58,6 +66,15 @@ export class RentalPropertyInvestmentCalculatorStack extends cdk.Stack {
     environment: {
       "DDB_TABLE":propertyAnalysisTable.tableName}
   });
+
+  const aiInsightsLambdaFunction = new lambda.Function(this, "ai-analysis-function", {
+    functionName: "ai-analysis-function",
+    runtime: lambda.Runtime.PYTHON_3_13, 
+    handler: "anthropic_function.lambda_handler",
+    code: lambda.Code.fromAsset(join(__dirname, '../anthropic_lambda')),
+    timeout: cdk.Duration.minutes(5),
+    role: this.rentalPropertyCalcRole,
+  })
 
   const api = new apigateway.RestApi(this, 'rentalPropApi1', {
     restApiName: 'rentalPropApi1',
@@ -74,6 +91,9 @@ export class RentalPropertyInvestmentCalculatorStack extends cdk.Stack {
 
   const listPath = api.root.addResource('send-analysis');
   listPath.addMethod(HttpMethod.POST, new apigateway.LambdaIntegration(myFunction));
+
+  const aiPath = api.root.addResource('get-analysis')
+  aiPath.addMethod(HttpMethod.POST, new apigateway.LambdaIntegration(aiInsightsLambdaFunction));
   
   }
 }
