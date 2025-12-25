@@ -90,10 +90,14 @@ export class RentalPropertyInvestmentCalculatorStack extends cdk.Stack {
   });
 
   const listPath = api.root.addResource('send-analysis');
-  listPath.addMethod(HttpMethod.POST, new apigateway.LambdaIntegration(myFunction));
+  listPath.addMethod(HttpMethod.POST, new apigateway.LambdaIntegration(myFunction),{
+      authorizationType: apigateway.AuthorizationType.IAM
+    });
 
   const aiPath = api.root.addResource('get-analysis')
-  aiPath.addMethod(HttpMethod.POST, new apigateway.LambdaIntegration(aiInsightsLambdaFunction));
-  
-  }
+  aiPath.addMethod(HttpMethod.POST, new apigateway.LambdaIntegration(aiInsightsLambdaFunction), {
+    authorizationType: apigateway.AuthorizationType.IAM 
+  });
+}
+
 }
